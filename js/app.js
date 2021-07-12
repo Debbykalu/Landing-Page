@@ -55,11 +55,11 @@ document.addEventListener("DOMContentLoaded", () => {
       section.scrollIntoView({ behavior: "smooth" });
       // toggle highlight on and off when we click a link
       listOfLinks.forEach(link => {
-        if (link.classList.contains("highlighted")) {
-          link.classList.remove("highlighted");
+        if (link.classList.contains("active")) {
+          link.classList.remove("active");
         }
       });
-      link.classList.add("highlighted");
+      link.classList.add("active");
       // get the element where to scroll
       let ref = link.href.split("#section");
       ref = "#section" + ref[1];
