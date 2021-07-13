@@ -23,7 +23,7 @@ body {
 
 /* Typeography General*/
 h1 {
-  font-family: "Fira Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 3em;
   margin: 2em 1rem;
 }
@@ -37,7 +37,7 @@ h1 {
 
 h2 {
   border-bottom: 1px solid #cc1;
-  font-family: "Oxygen", Sans-Serif;
+  font-family: "Roboto", Sans-Serif;
   font-size: 3em;
   color: #fff;
 }
