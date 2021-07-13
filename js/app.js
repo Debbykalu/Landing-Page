@@ -1,49 +1,117 @@
-const navbar__list = document.querySelector("#navbar__list");
-const sections = document.querySelectorAll("section");
-let firstLink = true;
-for (section of sections) {
-  let li = document.createElement("li");
-  li.innerHTML = `<a href="#${section.id}" class="menu__link ${
-    firstLink ? "link__active" : ""
-  }" data-link="${section.dataset.nav}">
-        ${section.dataset.nav}
-    </a>`;
-  li.className = "list";
-  navbar__list.appendChild(li);
-  firstLink = false;
+/**
+ *
+ * Manipulating the DOM exercise.
+ * Exercise programmatically builds navigation,
+ * scrolls to anchors from navigation,
+ * and highlights section in viewport upon scrolling.
+ *
+ * Dependencies: None
+ *
+ * JS Version: ES2015/ES6
+ *
+ * JS Standard: ESlint
+ *
+ */
+
+/**
+ * Define Global Variables
+ *
+ */
+const sections = document.querySelectorAll("main section");
+const navItem = document.getElementById("navbar__list");
+const navItemFragment = document.createDocumentFragment();
+
+//improve perfomance
+let activeNav = undefined;
+let activeSection = undefined;
+
+/**
+ * End Global Variables
+ * Start Helper Functions
+ *
+ */
+
+const isNearTopViewport = element => {
+  const rec = element.getBoundingClientRect();
+  const headerHeight = document.querySelector(".page__header").offsetHeight;
+  return rec.top <= headerHeight + 50 && rec.top >= 0 && rec.bottom > 100;
+};
+
+const activateMenu = menu => {
+  // target the previous active menu
+  if (activateMenu !== menu) {
+    // make prev active menu inactive
+    activeNav && activeNav.classList.remove("l__active");
+
+    // activate menu
+    menu.classList.add("l__active");
+
+    activeNav = menu;
+  }
+};
+
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ *
+ */
+
+// create the nav list dynamically
+for (const section of sections) {
+  const li = document.createElement("li");
+  const anchor = document.createElement("a");
+  anchor.setAttribute("href", `#${section.getAttribute("id")}`);
+  anchor.className = "menu__link";
+  anchor.textContent = section.getAttribute("data-nav");
+  li.appendChild(anchor);
+  navItemFragment.appendChild(li);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  //  little hack to detect if the user is on ie 11
-  const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
-  // get all the links with an ID that starts with 'section'
-  const listOfLinks = document.querySelectorAll("a[href^='#section");
-  // loop over all the links
-  listOfLinks.forEach(function(link) {
-    // listen for a click
-    link.addEventListener("click", () => {
-      section.scrollIntoView({ behavior: "smooth" });
-      // toggle highlight on and off when we click a link
-      listOfLinks.forEach(link => {
-        if (link.classList.contains("active")) {
-          link.classList.remove("active");
-        }
-      });
-      link.classList.add("active");
-      // get the element where to scroll
-      let ref = link.href.split("#section");
-      ref = "#section" + ref[1];
-      // ie 11 does not support smooth scroll, so we will simply scroll
-      if (isIE11) {
-        window.scrollTo(0, document.querySelector(ref).offsetTop);
-      } else {
-        window.scroll({
-          behavior: "smooth",
-          left: 0,
-          // top gets the distance from the top of the page of our target element
-          top: document.querySelector(ref).offsetTop
-        });
+// add the list content created to the page
+navItem.appendChild(navItemFragment);
+
+// Add 'active' class to section when near top of viewport
+const updateActiveSection = () => {
+  for (const section of sections) {
+    if (isNearTopViewport(section)) {
+      if (activeSection !== section) {
+        // make prev active menu inactive
+        activeSection && activeSection.classList.remove("l__active");
+
+        // activate the section
+        section.classList.add("l__active");
+
+        activeSection = section;
+
+        const menuToActivate = document.querySelector(
+          `a[href="#${section.getAttribute("id")}"]`
+        );
+
+        activateMenu(menuToActivate);
       }
-    });
-  });
+
+      return;
+    }
+  }
+};
+
+/**
+ * End Main Functions
+ * Begin Events
+ *
+ */
+
+// Scroll to anchor tag ID using scrollIntoView event
+navItem.addEventListener("click", event => {
+  event.preventDefault();
+
+  // get linked section
+  const section = document.getElementById(
+    event.target.getAttribute("href").replace("#", "")
+  );
+
+  // scroll to linked section
+  section.scrollIntoView({ behavior: "smooth" });
 });
+
+document.addEventListener("scroll", updateActiveSection);

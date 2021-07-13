@@ -17,24 +17,15 @@ body {
     rgba(0, 13, 60, 1) 100%
   );
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Merriweather", serif;
   color: #fff;
 }
-/* main {
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-  scroll-snap-type: mandatory;
-} */
+
 /* Typeography General*/
 h1 {
-  font-family: "Roboto", sans-serif;
+  font-family: "Fira Sans", sans-serif;
   font-size: 3em;
   margin: 2em 1rem;
-}
-
-p {
-  font-family: "Roboto", sans-serif;
-  font-size: 1em;
 }
 
 @media only screen and (min-width: 35em) {
@@ -77,45 +68,61 @@ section {
 .navbar__menu ul {
   padding-left: 0;
   margin: 0;
-  text-align: right;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  float: left;
+}
+
+@media (max-width: 669px) {
+  .navbar__menu ul {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .navbar__menu li {
-  display: inline-block;
+  padding: 1rem;
+  list-style: none;
 }
 
-.navbar__menu .menu__li {
+.navbar__menu .menu__link {
   display: block;
-  padding: 1em;
+  padding: 0.725em;
   font-weight: bold;
   text-decoration: none;
-  color: #000;
+  color: #fff;
+  border-radius: 0.25rem;
+  font-size: 1.2em !important;
 }
 
-.navbar__menu .menu__li:hover {
-  background: rgb(7, 189, 245);
+.navbar__menu .menu__link.l__active {
+  background: rgb(240, 94, 179);
+  color: #fff;
+  font-size: 1.2em !important;
+}
+
+.navbar__menu .menu__link:hover {
+  background: #f7a2e9;
   color: #fff;
   transition: ease 0.3s all;
-  cursor: pointer;
-}
-
-.li__active {
-  background: rgb(7, 189, 245);
-  color: rgb(255, 255, 255) !important;
-  transition: ease 0.3s all;
-}
-
-.highlighted {
-  background: rgb(7, 189, 245);
 }
 
 /* Header Styles */
 .page__header {
-  background: rgb(7 189 245 / 72%);
+  background: #000;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 5;
+}
+
+@media (max-width: 669px) {
+  .page__header {
+    width: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
 }
 
 /* Footer Styles */
@@ -224,33 +231,28 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
-section.active {
+section.l__active {
   background: rgb(0, 0, 0);
   background: linear-gradient(
     0deg,
-    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.1) 0%,
     rgba(0, 0, 0, 0) 100%
   );
 }
 
-section.active .landing__container::before {
+section.l__active h2 {
+  transition: all 0.4s ease-in-out;
+  transform: translateX(15px);
+}
+
+section.l__active .landing__container::before {
   opacity: 1;
   animation: rotate 4s linear 0s infinite forwards;
 }
 
-section.active .landing__container::after {
+section.l__active .landing__container::after {
   opacity: 1;
   animation: rotate 5s linear 0s infinite forwards reverse;
-}
-
-.list {
-  color: black;
-  padding: 20px;
-  float: left;
-  font-size: 1.25em;
-}
-.list a {
-  text-decoration: none;
 }
 
 /* Section Active Styles Keyframe Animations */
