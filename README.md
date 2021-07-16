@@ -1,13 +1,25 @@
 # Landing Page Project
 
-## Table of Contents
+This is my second project from Udacity learning course, it's a single page application that allowed to scroll into any view the navbar.
 
-* [Instructions](#instructions)
+# Step by Step instructions
 
-## Instructions
+- The project is Properly structured
+- List item was dynamically added from the DOM
+- An active class was added.
+- The 4th section was add.
+- some styling was add for the active states.
+- ScrollIntoView was use for smooth scroll.
+- When any of the item is click the link goes to the approprate section on the page.
+- An event handler was added to listen clicks.
+- This page is responsive across all browser.
+- The codes are properly formatted.
+- comments were used to explain procedure where necessary.
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+* Deployment was made through Netlify
 
-To get started, open `js/app.js` and start building out the app's functionality
+# Usage
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+- Clone or Download the App
+
+View App
